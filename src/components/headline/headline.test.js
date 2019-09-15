@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Headline from './index';
+import checkPropTypes from 'check-prop-types';
 
 const findByTestAttr = (component, attr) => {
   const result = component.find(`[data-test='${attr}']`);
@@ -13,6 +14,27 @@ const setUp = (props = {}) => {
 };
 
 describe('Headline Component', () => {
+  describe('Testing prop-types', () => {
+    it('Should not Throw a warning', () => {
+      const expectedProps = {
+        header: 'testheader',
+        desc: 'testDesc',
+        tempArr: [
+          {
+            fName: 'test fName',
+            lName: 'test lName',
+            email: 'test@gmail.com',
+            age: 25,
+            onlineStatus: false
+          }
+        ]
+      };
+
+      const propsErr = checkPropTypes(Headline.propTypes, expectedProps, 'props', Headline.name);
+      expect(propsErr).toBeUndefined();
+    });
+  });
+
   describe('Have Props', () => {
     let wrapper;
     beforeEach(() => {
@@ -38,6 +60,7 @@ describe('Headline Component', () => {
       expect(component.length).toBe(1);
     });
   });
+
   describe('Have No Props', () => {
     let wrapper;
     beforeEach(() => {
@@ -45,8 +68,8 @@ describe('Headline Component', () => {
     });
 
     it('should not render', () => {
-        const component = findByTestAttr(wrapper,'HeadlineComponent');
-        expect(component.length).toBe(0);
-    })
+      const component = findByTestAttr(wrapper, 'HeadlineComponent');
+      expect(component.length).toBe(0);
+    });
   });
 });

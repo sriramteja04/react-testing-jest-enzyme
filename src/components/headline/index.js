@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export class index extends Component {
+export class Headline extends Component {
   constructor(props) {
     super(props);
   }
@@ -17,4 +18,18 @@ export class index extends Component {
   }
 }
 
-export default index;
+Headline.propTypes = {
+  header: PropTypes.string,
+  desc: PropTypes.string,
+  tempArr: PropTypes.arrayOf(
+    PropTypes.shape({
+      fName: PropTypes.string,
+      lName: PropTypes.string,
+      email: PropTypes.string,
+      age: PropTypes.number,
+      onlineStatus: PropTypes.bool
+    })
+  )
+};
+
+export default Headline;
